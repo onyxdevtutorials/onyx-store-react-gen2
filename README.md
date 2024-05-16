@@ -1,4 +1,41 @@
-# React + TypeScript + Vite
+# React + TypeScript + Vite + Vitest + Amplify Gen 2
+
+Create onyx-store-react-gen2 repo in github
+
+```
+npm create vite@latest onyx-store-react-gen2 -- --template react-ts
+cd onyx-store-react-gen2
+npm i
+npm i -save-dev vitest
+npm create amplify@latest
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:davidsilva/onyx-store-react-gen2.git
+git push -u origin main
+```
+
+Go to AWS Amplify -> Create New App -> Choose GitHub -> Choose repo (onyx-store-react-gen2)
+Might require giving permission for AWS to access the repo.
+
+Go through the steps of deploying....
+
+This command will watch for changes:
+
+```
+npx ampx sandbox
+```
+
+Add Amplify React UI components:
+
+```
+npm i @aws-amplify/ui-react
+```
+
+```
+npm run dev
+```
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -17,12 +54,12 @@ If you are developing a production application, we recommend updating the config
 export default {
   // other rules...
   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
+    ecmaVersion: "latest",
+    sourceType: "module",
+    project: ["./tsconfig.json", "./tsconfig.node.json"],
     tsconfigRootDir: __dirname,
   },
-}
+};
 ```
 
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
