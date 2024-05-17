@@ -19,7 +19,7 @@ const schema = a.schema({
       // "guest" = Cognito unauthenticated role
       allow.guest().to(["read"]),
       allow.authenticated().to(["read"]),
-      allow.group("Admins"),
+      allow.group("Admins").to(["create", "read", "update", "delete"]),
     ]),
 
   Review: a
