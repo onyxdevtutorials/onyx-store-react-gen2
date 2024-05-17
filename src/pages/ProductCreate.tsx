@@ -1,15 +1,19 @@
-import { useState } from "react";
+// import { useState } from "react";
 import useAdminCheck from "../hooks/useAdminCheck";
 import { AsyncProcessStatus } from "../types";
 import ProductCreateForm from "../ui-components/ProductCreateForm.jsx";
 import { ProductCreateFormInputValues } from "../ui-components/ProductCreateForm.jsx";
 
 const ProductCreate = () => {
-  const [showForm, setShowForm] = useState(true);
+  //   const [showForm, setShowForm] = useState(true);
   const { adminCheck } = useAdminCheck();
 
-  const handleSubmit = async (fields: ProductCreateFormInputValues) => {
+  const handleSubmit = (
+    fields: ProductCreateFormInputValues
+  ): ProductCreateFormInputValues => {
     console.log(fields);
+
+    return fields;
   };
 
   if (adminCheck.status === AsyncProcessStatus.PENDING) {
