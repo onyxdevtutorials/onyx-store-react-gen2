@@ -16,10 +16,10 @@ export const auth = defineAuth({
   - it can be changed
   - it cannot be used to sign in the user
   - it can be used as a display name for the user */
-  userAttributes: {
-    preferredUsername: {
-      mutable: true,
-      required: false,
-    },
-  },
+  // userAttributes: {
+  //   preferredUsername: {
+  //     mutable: true,
+  //     required: false,
+  //   },
+  // },
 });
