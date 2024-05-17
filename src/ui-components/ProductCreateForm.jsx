@@ -18,36 +18,36 @@ export default function ProductCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    productId: "",
+    // productId: "",
     name: "",
     description: "",
     price: "",
     image: "",
-    stripePriceId: "",
-    stripeProductId: "",
+    // stripePriceId: "",
+    // stripeProductId: "",
   };
-  const [productId, setProductId] = React.useState(initialValues.productId);
+  // const [productId, setProductId] = React.useState(initialValues.productId);
   const [name, setName] = React.useState(initialValues.name);
   const [description, setDescription] = React.useState(
     initialValues.description
   );
   const [price, setPrice] = React.useState(initialValues.price);
   const [image, setImage] = React.useState(initialValues.image);
-  const [stripePriceId, setStripePriceId] = React.useState(
-    initialValues.stripePriceId
-  );
-  const [stripeProductId, setStripeProductId] = React.useState(
-    initialValues.stripeProductId
-  );
+  // const [stripePriceId, setStripePriceId] = React.useState(
+  //   initialValues.stripePriceId
+  // );
+  // const [stripeProductId, setStripeProductId] = React.useState(
+  //   initialValues.stripeProductId
+  // );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setProductId(initialValues.productId);
+    // setProductId(initialValues.productId);
     setName(initialValues.name);
     setDescription(initialValues.description);
     setPrice(initialValues.price);
     setImage(initialValues.image);
-    setStripePriceId(initialValues.stripePriceId);
-    setStripeProductId(initialValues.stripeProductId);
+    // setStripePriceId(initialValues.stripePriceId);
+    // setStripeProductId(initialValues.stripeProductId);
     setErrors({});
   };
   const validations = {
@@ -56,8 +56,8 @@ export default function ProductCreateForm(props) {
     description: [],
     price: [{ type: "Required" }],
     image: [],
-    stripePriceId: [],
-    stripeProductId: [],
+    // stripePriceId: [],
+    // stripeProductId: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -90,8 +90,8 @@ export default function ProductCreateForm(props) {
           description,
           price,
           image,
-          stripePriceId,
-          stripeProductId,
+          // stripePriceId,
+          // stripeProductId,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -185,13 +185,13 @@ export default function ProductCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              productId,
+              // productId,
               name: value,
               description,
               price,
               image,
-              stripePriceId,
-              stripeProductId,
+              // stripePriceId,
+              // stripeProductId,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -215,13 +215,13 @@ export default function ProductCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              productId,
+              // productId,
               name,
               description: value,
               price,
               image,
-              stripePriceId,
-              stripeProductId,
+              // stripePriceId,
+              // stripeProductId,
             };
             const result = onChange(modelFields);
             value = result?.description ?? value;
@@ -249,13 +249,13 @@ export default function ProductCreateForm(props) {
             : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
-              productId,
+              // productId,
               name,
               description,
               price: value,
               image,
-              stripePriceId,
-              stripeProductId,
+              // stripePriceId,
+              // stripeProductId,
             };
             const result = onChange(modelFields);
             value = result?.price ?? value;
@@ -279,13 +279,13 @@ export default function ProductCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              productId,
+              // productId,
               name,
               description,
               price,
               image: value,
-              stripePriceId,
-              stripeProductId,
+              // stripePriceId,
+              // stripeProductId,
             };
             const result = onChange(modelFields);
             value = result?.image ?? value;
