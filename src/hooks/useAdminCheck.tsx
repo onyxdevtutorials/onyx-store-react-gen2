@@ -21,7 +21,6 @@ const useAdminCheck = () => {
     setAdminCheck({ status: AsyncProcessStatus.PENDING });
     try {
       const session = await fetchAuthSession();
-      console.log("session", session);
       const tokens = session.tokens;
 
       let isAdmin = false;
