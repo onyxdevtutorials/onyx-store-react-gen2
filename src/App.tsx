@@ -1,31 +1,46 @@
 import "./App.css";
 import { Authenticator } from "@aws-amplify/ui-react";
-import { ProductCreate } from "./pages";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Layout, ProductCreate } from "./pages";
+import {
+  Route,
+  Routes,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
 import "@aws-amplify/ui-react/styles.css";
+import { Landing, SignIn } from "./pages";
 
 const AdminRoutes = () => (
-  <Routes>
-    <Route path="/product-create" element={<ProductCreate />} />
-  </Routes>
+  <Authenticator>
+    <Routes>
+      <Route path="/product-create" element={<ProductCreate />} />
+    </Routes>
+  </Authenticator>
 );
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <Landing />,
+      },
+      {
+        path: "/sign-in",
+        element: <SignIn />,
+      },
+      {
+        path: "/admin/*",
+        element: <AdminRoutes />,
+      },
+    ],
+  },
+]);
+
 function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<div>Home</div>} />
-        <Route
-          path="/admin/*"
-          element={
-            <Authenticator>
-              <AdminRoutes />
-            </Authenticator>
-          }
-        />
-      </Routes>
-    </Router>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
