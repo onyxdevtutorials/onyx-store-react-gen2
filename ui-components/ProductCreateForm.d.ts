@@ -16,33 +16,24 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type ProductCreateFormInputValues = {
-    productId?: string;
     name?: string;
     description?: string;
     price?: number;
     image?: string;
-    stripePriceId?: string;
-    stripeProductId?: string;
 };
 export declare type ProductCreateFormValidationValues = {
-    productId?: ValidationFunction<string>;
     name?: ValidationFunction<string>;
     description?: ValidationFunction<string>;
     price?: ValidationFunction<number>;
     image?: ValidationFunction<string>;
-    stripePriceId?: ValidationFunction<string>;
-    stripeProductId?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ProductCreateFormOverridesProps = {
     ProductCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    productId?: PrimitiveOverrideProps<TextFieldProps>;
     name?: PrimitiveOverrideProps<TextFieldProps>;
     description?: PrimitiveOverrideProps<TextFieldProps>;
     price?: PrimitiveOverrideProps<TextFieldProps>;
     image?: PrimitiveOverrideProps<TextFieldProps>;
-    stripePriceId?: PrimitiveOverrideProps<TextFieldProps>;
-    stripeProductId?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type ProductCreateFormProps = React.PropsWithChildren<{
     overrides?: ProductCreateFormOverridesProps | undefined | null;

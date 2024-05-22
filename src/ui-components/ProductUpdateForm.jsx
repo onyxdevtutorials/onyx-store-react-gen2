@@ -9,7 +9,7 @@ import { updateProduct } from "./graphql/mutations";
 const client = generateClient();
 export default function ProductUpdateForm(props) {
   const {
-    productId: productIdProp,
+    id: idProp,
     product: productModelProp,
     onSuccess,
     onError,
@@ -20,65 +20,49 @@ export default function ProductUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    productId: "",
     name: "",
     description: "",
     price: "",
     image: "",
-    stripePriceId: "",
-    stripeProductId: "",
   };
-  const [productId, setProductId] = React.useState(initialValues.productId);
   const [name, setName] = React.useState(initialValues.name);
   const [description, setDescription] = React.useState(
     initialValues.description
   );
   const [price, setPrice] = React.useState(initialValues.price);
   const [image, setImage] = React.useState(initialValues.image);
-  const [stripePriceId, setStripePriceId] = React.useState(
-    initialValues.stripePriceId
-  );
-  const [stripeProductId, setStripeProductId] = React.useState(
-    initialValues.stripeProductId
-  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = productRecord
       ? { ...initialValues, ...productRecord }
       : initialValues;
-    setProductId(cleanValues.productId);
     setName(cleanValues.name);
     setDescription(cleanValues.description);
     setPrice(cleanValues.price);
     setImage(cleanValues.image);
-    setStripePriceId(cleanValues.stripePriceId);
-    setStripeProductId(cleanValues.stripeProductId);
     setErrors({});
   };
   const [productRecord, setProductRecord] = React.useState(productModelProp);
   React.useEffect(() => {
     const queryData = async () => {
-      const record = productIdProp
+      const record = idProp
         ? (
             await client.graphql({
               query: getProduct.replaceAll("__typename", ""),
-              variables: { productId: productIdProp },
+              variables: { id: idProp },
             })
           )?.data?.getProduct
         : productModelProp;
       setProductRecord(record);
     };
     queryData();
-  }, [productIdProp, productModelProp]);
+  }, [idProp, productModelProp]);
   React.useEffect(resetStateValues, [productRecord]);
   const validations = {
-    productId: [{ type: "Required" }],
     name: [{ type: "Required" }],
     description: [],
     price: [{ type: "Required" }],
     image: [],
-    stripePriceId: [],
-    stripeProductId: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -106,13 +90,10 @@ export default function ProductUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          productId,
           name,
           description: description ?? null,
           price,
           image: image ?? null,
-          stripePriceId: stripePriceId ?? null,
-          stripeProductId: stripeProductId ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -146,7 +127,7 @@ export default function ProductUpdateForm(props) {
             query: updateProduct.replaceAll("__typename", ""),
             variables: {
               input: {
-                productId: productRecord.productId,
+                id: productRecord.id,
                 ...modelFields,
               },
             },
@@ -165,36 +146,6 @@ export default function ProductUpdateForm(props) {
       {...rest}
     >
       <TextField
-        label="Product id"
-        isRequired={true}
-        isReadOnly={true}
-        value={productId}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              productId: value,
-              name,
-              description,
-              price,
-              image,
-              stripePriceId,
-              stripeProductId,
-            };
-            const result = onChange(modelFields);
-            value = result?.productId ?? value;
-          }
-          if (errors.productId?.hasError) {
-            runValidationTasks("productId", value);
-          }
-          setProductId(value);
-        }}
-        onBlur={() => runValidationTasks("productId", productId)}
-        errorMessage={errors.productId?.errorMessage}
-        hasError={errors.productId?.hasError}
-        {...getOverrideProps(overrides, "productId")}
-      ></TextField>
-      <TextField
         label="Name"
         isRequired={true}
         isReadOnly={false}
@@ -203,13 +154,10 @@ export default function ProductUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              productId,
               name: value,
               description,
               price,
               image,
-              stripePriceId,
-              stripeProductId,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -233,13 +181,10 @@ export default function ProductUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              productId,
               name,
               description: value,
               price,
               image,
-              stripePriceId,
-              stripeProductId,
             };
             const result = onChange(modelFields);
             value = result?.description ?? value;
@@ -267,13 +212,10 @@ export default function ProductUpdateForm(props) {
             : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
-              productId,
               name,
               description,
               price: value,
               image,
-              stripePriceId,
-              stripeProductId,
             };
             const result = onChange(modelFields);
             value = result?.price ?? value;
@@ -297,13 +239,10 @@ export default function ProductUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              productId,
               name,
               description,
               price,
               image: value,
-              stripePriceId,
-              stripeProductId,
             };
             const result = onChange(modelFields);
             value = result?.image ?? value;
@@ -318,66 +257,6 @@ export default function ProductUpdateForm(props) {
         hasError={errors.image?.hasError}
         {...getOverrideProps(overrides, "image")}
       ></TextField>
-      <TextField
-        label="Stripe price id"
-        isRequired={false}
-        isReadOnly={false}
-        value={stripePriceId}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              productId,
-              name,
-              description,
-              price,
-              image,
-              stripePriceId: value,
-              stripeProductId,
-            };
-            const result = onChange(modelFields);
-            value = result?.stripePriceId ?? value;
-          }
-          if (errors.stripePriceId?.hasError) {
-            runValidationTasks("stripePriceId", value);
-          }
-          setStripePriceId(value);
-        }}
-        onBlur={() => runValidationTasks("stripePriceId", stripePriceId)}
-        errorMessage={errors.stripePriceId?.errorMessage}
-        hasError={errors.stripePriceId?.hasError}
-        {...getOverrideProps(overrides, "stripePriceId")}
-      ></TextField>
-      <TextField
-        label="Stripe product id"
-        isRequired={false}
-        isReadOnly={false}
-        value={stripeProductId}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              productId,
-              name,
-              description,
-              price,
-              image,
-              stripePriceId,
-              stripeProductId: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.stripeProductId ?? value;
-          }
-          if (errors.stripeProductId?.hasError) {
-            runValidationTasks("stripeProductId", value);
-          }
-          setStripeProductId(value);
-        }}
-        onBlur={() => runValidationTasks("stripeProductId", stripeProductId)}
-        errorMessage={errors.stripeProductId?.errorMessage}
-        hasError={errors.stripeProductId?.hasError}
-        {...getOverrideProps(overrides, "stripeProductId")}
-      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
@@ -389,7 +268,7 @@ export default function ProductUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(productIdProp || productModelProp)}
+          isDisabled={!(idProp || productModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -401,7 +280,7 @@ export default function ProductUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(productIdProp || productModelProp) ||
+              !(idProp || productModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

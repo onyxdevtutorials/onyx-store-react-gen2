@@ -17,38 +17,29 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type ProductUpdateFormInputValues = {
-    productId?: string;
     name?: string;
     description?: string;
     price?: number;
     image?: string;
-    stripePriceId?: string;
-    stripeProductId?: string;
 };
 export declare type ProductUpdateFormValidationValues = {
-    productId?: ValidationFunction<string>;
     name?: ValidationFunction<string>;
     description?: ValidationFunction<string>;
     price?: ValidationFunction<number>;
     image?: ValidationFunction<string>;
-    stripePriceId?: ValidationFunction<string>;
-    stripeProductId?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ProductUpdateFormOverridesProps = {
     ProductUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    productId?: PrimitiveOverrideProps<TextFieldProps>;
     name?: PrimitiveOverrideProps<TextFieldProps>;
     description?: PrimitiveOverrideProps<TextFieldProps>;
     price?: PrimitiveOverrideProps<TextFieldProps>;
     image?: PrimitiveOverrideProps<TextFieldProps>;
-    stripePriceId?: PrimitiveOverrideProps<TextFieldProps>;
-    stripeProductId?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type ProductUpdateFormProps = React.PropsWithChildren<{
     overrides?: ProductUpdateFormOverridesProps | undefined | null;
 } & {
-    productId?: string;
+    id?: string;
     product?: Product;
     onSubmit?: (fields: ProductUpdateFormInputValues) => ProductUpdateFormInputValues;
     onSuccess?: (fields: ProductUpdateFormInputValues) => void;

@@ -18,46 +18,30 @@ export default function ProductCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    productId: "",
     name: "",
     description: "",
     price: "",
     image: "",
-    stripePriceId: "",
-    stripeProductId: "",
   };
-  const [productId, setProductId] = React.useState(initialValues.productId);
   const [name, setName] = React.useState(initialValues.name);
   const [description, setDescription] = React.useState(
     initialValues.description
   );
   const [price, setPrice] = React.useState(initialValues.price);
   const [image, setImage] = React.useState(initialValues.image);
-  const [stripePriceId, setStripePriceId] = React.useState(
-    initialValues.stripePriceId
-  );
-  const [stripeProductId, setStripeProductId] = React.useState(
-    initialValues.stripeProductId
-  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setProductId(initialValues.productId);
     setName(initialValues.name);
     setDescription(initialValues.description);
     setPrice(initialValues.price);
     setImage(initialValues.image);
-    setStripePriceId(initialValues.stripePriceId);
-    setStripeProductId(initialValues.stripeProductId);
     setErrors({});
   };
   const validations = {
-    productId: [{ type: "Required" }],
     name: [{ type: "Required" }],
     description: [],
     price: [{ type: "Required" }],
     image: [],
-    stripePriceId: [],
-    stripeProductId: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -85,13 +69,10 @@ export default function ProductCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          productId,
           name,
           description,
           price,
           image,
-          stripePriceId,
-          stripeProductId,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -146,36 +127,6 @@ export default function ProductCreateForm(props) {
       {...rest}
     >
       <TextField
-        label="Product id"
-        isRequired={true}
-        isReadOnly={false}
-        value={productId}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              productId: value,
-              name,
-              description,
-              price,
-              image,
-              stripePriceId,
-              stripeProductId,
-            };
-            const result = onChange(modelFields);
-            value = result?.productId ?? value;
-          }
-          if (errors.productId?.hasError) {
-            runValidationTasks("productId", value);
-          }
-          setProductId(value);
-        }}
-        onBlur={() => runValidationTasks("productId", productId)}
-        errorMessage={errors.productId?.errorMessage}
-        hasError={errors.productId?.hasError}
-        {...getOverrideProps(overrides, "productId")}
-      ></TextField>
-      <TextField
         label="Name"
         isRequired={true}
         isReadOnly={false}
@@ -184,13 +135,10 @@ export default function ProductCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              productId,
               name: value,
               description,
               price,
               image,
-              stripePriceId,
-              stripeProductId,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -214,13 +162,10 @@ export default function ProductCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              productId,
               name,
               description: value,
               price,
               image,
-              stripePriceId,
-              stripeProductId,
             };
             const result = onChange(modelFields);
             value = result?.description ?? value;
@@ -248,13 +193,10 @@ export default function ProductCreateForm(props) {
             : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
-              productId,
               name,
               description,
               price: value,
               image,
-              stripePriceId,
-              stripeProductId,
             };
             const result = onChange(modelFields);
             value = result?.price ?? value;
@@ -278,13 +220,10 @@ export default function ProductCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              productId,
               name,
               description,
               price,
               image: value,
-              stripePriceId,
-              stripeProductId,
             };
             const result = onChange(modelFields);
             value = result?.image ?? value;
@@ -298,66 +237,6 @@ export default function ProductCreateForm(props) {
         errorMessage={errors.image?.errorMessage}
         hasError={errors.image?.hasError}
         {...getOverrideProps(overrides, "image")}
-      ></TextField>
-      <TextField
-        label="Stripe price id"
-        isRequired={false}
-        isReadOnly={false}
-        value={stripePriceId}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              productId,
-              name,
-              description,
-              price,
-              image,
-              stripePriceId: value,
-              stripeProductId,
-            };
-            const result = onChange(modelFields);
-            value = result?.stripePriceId ?? value;
-          }
-          if (errors.stripePriceId?.hasError) {
-            runValidationTasks("stripePriceId", value);
-          }
-          setStripePriceId(value);
-        }}
-        onBlur={() => runValidationTasks("stripePriceId", stripePriceId)}
-        errorMessage={errors.stripePriceId?.errorMessage}
-        hasError={errors.stripePriceId?.hasError}
-        {...getOverrideProps(overrides, "stripePriceId")}
-      ></TextField>
-      <TextField
-        label="Stripe product id"
-        isRequired={false}
-        isReadOnly={false}
-        value={stripeProductId}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              productId,
-              name,
-              description,
-              price,
-              image,
-              stripePriceId,
-              stripeProductId: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.stripeProductId ?? value;
-          }
-          if (errors.stripeProductId?.hasError) {
-            runValidationTasks("stripeProductId", value);
-          }
-          setStripeProductId(value);
-        }}
-        onBlur={() => runValidationTasks("stripeProductId", stripeProductId)}
-        errorMessage={errors.stripeProductId?.errorMessage}
-        hasError={errors.stripeProductId?.hasError}
-        {...getOverrideProps(overrides, "stripeProductId")}
       ></TextField>
       <Flex
         justifyContent="space-between"
