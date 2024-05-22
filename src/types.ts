@@ -1,3 +1,5 @@
+import { AuthUser } from "aws-amplify/auth";
+
 export enum AsyncProcessStatus {
   NONE = "NONE",
   PENDING = "PENDING",
@@ -34,3 +36,11 @@ export type AsyncProcess<T, E> =
   | AsyncProcessPending<T>
   | AsyncProcessError<T, E>
   | AsyncProcessSuccess<T>;
+
+export interface UserCheckResult {
+  user: AuthUser | null;
+}
+
+export interface UserCheckError {
+  message: string;
+}
