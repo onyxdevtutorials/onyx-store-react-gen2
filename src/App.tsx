@@ -1,6 +1,6 @@
 import "./App.css";
 import { Authenticator } from "@aws-amplify/ui-react";
-import { Layout, ProductCreate } from "./pages";
+import { Layout, ProductCreate, ProductUpdate } from "./pages";
 import {
   Route,
   Routes,
@@ -14,6 +14,7 @@ const AdminRoutes = () => (
   <Authenticator>
     <Routes>
       <Route path="/product-create" element={<ProductCreate />} />
+      <Route path="/product-update/:id" element={<ProductUpdate />} />
     </Routes>
   </Authenticator>
 );
