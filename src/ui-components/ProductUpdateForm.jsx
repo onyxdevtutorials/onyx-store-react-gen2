@@ -19,6 +19,7 @@ export default function ProductUpdateForm(props) {
     overrides,
     ...rest
   } = props;
+  console.log("idProp", idProp);
   const initialValues = {
     name: "",
     description: "",
@@ -49,6 +50,7 @@ export default function ProductUpdateForm(props) {
         ? (
             await client.graphql({
               query: getProduct.replaceAll("__typename", ""),
+              authMode: "userPool",
               variables: { id: idProp },
             })
           )?.data?.getProduct
@@ -125,6 +127,7 @@ export default function ProductUpdateForm(props) {
           });
           await client.graphql({
             query: updateProduct.replaceAll("__typename", ""),
+            authMode: "userPool",
             variables: {
               input: {
                 id: productRecord.id,
