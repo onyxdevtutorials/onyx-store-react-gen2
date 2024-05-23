@@ -5,6 +5,9 @@ import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
 import { createProduct } from "./graphql/mutations";
+import { processFile } from "./utils";
+import { StorageManager } from "@aws-amplify/ui-react-storage";
+
 const client = generateClient();
 
 export default function ProductCreateForm(props) {
@@ -213,33 +216,22 @@ export default function ProductCreateForm(props) {
         hasError={errors.price?.hasError}
         {...getOverrideProps(overrides, "price")}
       ></TextField>
-      <TextField
-        label="Image"
-        isRequired={false}
-        isReadOnly={false}
-        value={image}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              name,
-              description,
-              price,
-              image: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.image ?? value;
-          }
-          if (errors.image?.hasError) {
-            runValidationTasks("image", value);
-          }
-          setImage(value);
+
+      <StorageManager
+        accessLevel="public"
+        maxFileCount={1}
+        acceptedFileTypes={["image/*"]}
+        processFile={processFile}
+        onUploadSuccess={({ key }) => {
+          console.log("onUploadSuccess", key);
+          // assuming you have an attribute called 'images' on your data model that is an array of strings
+          setImage(key);
         }}
-        onBlur={() => runValidationTasks("image", image)}
-        errorMessage={errors.image?.errorMessage}
-        hasError={errors.image?.hasError}
-        {...getOverrideProps(overrides, "image")}
-      ></TextField>
+        onFileRemove={({ key }) => {
+          setImage(undefined);
+        }}
+      />
+
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

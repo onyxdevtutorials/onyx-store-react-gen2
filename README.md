@@ -37,6 +37,8 @@ npm i @aws-amplify/ui-react
 npm run dev
 ```
 
+Need to edit generated form to specify authMode.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

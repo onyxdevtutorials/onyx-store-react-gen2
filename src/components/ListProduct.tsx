@@ -50,6 +50,11 @@ const ListProduct: React.FC<ListProductProps> = ({ product, isAdmin }) => {
       <div>{product.name}</div>
       <div>{product.description}</div>
       <div>{product.price}</div>
+      {product.image && (
+        <div>
+          <img src={product.image} />
+        </div>
+      )}
       {isAdmin && (
         <div>
           <Button onClick={handleUpdate}>Edit</Button>
