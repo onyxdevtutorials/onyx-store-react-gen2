@@ -3,6 +3,7 @@ import { type Schema } from "../../amplify/data/resource";
 import Button from "react-bootstrap/Button";
 import { generateClient } from "aws-amplify/api";
 import { useState } from "react";
+import { StorageImage } from "@aws-amplify/ui-react-storage";
 
 type Product = Schema["Product"]["type"];
 
@@ -51,9 +52,7 @@ const ListProduct: React.FC<ListProductProps> = ({ product, isAdmin }) => {
       <div>{product.description}</div>
       <div>{product.price}</div>
       {product.image && (
-        <div>
-          <img src={product.image} />
-        </div>
+        <StorageImage path={product.image} alt={product.name} />
       )}
       {isAdmin && (
         <div>

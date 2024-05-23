@@ -218,7 +218,7 @@ export default function ProductCreateForm(props) {
       ></TextField>
 
       <StorageManager
-        accessLevel="public"
+        path="product-images/"
         maxFileCount={1}
         acceptedFileTypes={["image/*"]}
         processFile={processFile}
