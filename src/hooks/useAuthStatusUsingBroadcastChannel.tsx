@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Hub } from "aws-amplify/utils";
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import { AsyncProcessStatus } from "../types";
 import { useNavigate } from "react-router-dom";
 
 const useAuthStatusUsingBroadcastChannel = () => {
